@@ -1,0 +1,213 @@
+@charset "UTF-8";
+@import url("https://fonts.googleapis.com/css2?family=Blinker:wght@100;200;300;400;600;700;800;900&display=swap");
+/* 
+===========
+  global
+=========== */
+body {
+  background-color: whitesmoke;
+  min-height: 100vh;
+}
+
+*, *::after, *::before {
+  font-family: 'Blinker', sans-serif;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+
+/* 
+===========
+  navbar
+=========== */
+nav {
+  top: 0;
+  left: 0;
+  right: 0;
+  background-color: #268026;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  padding-inline: 3em;
+  height: -webkit-max-content;
+  height: -moz-max-content;
+  height: max-content;
+}
+
+nav .nav_title {
+  font-size: 2.3rem;
+  font-weight: 600;
+  color: white;
+  margin-block: .25em;
+}
+
+nav ul {
+  list-style: none;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -webkit-column-gap: 3em;
+          column-gap: 3em;
+}
+
+nav ul li a {
+  position: relative;
+  color: white;
+  text-decoration: none;
+  font-size: 1.2rem;
+}
+
+nav ul li a::after {
+  content: "";
+  background-color: white;
+  position: absolute;
+  bottom: -2px;
+  height: 2px;
+  left: 50%;
+  -webkit-transform: translateX(-50%);
+          transform: translateX(-50%);
+  width: 0;
+  -webkit-transition: all 0.3s ease-out;
+  transition: all 0.3s ease-out;
+}
+
+nav ul li a:hover::after {
+  width: 100%;
+}
+
+/* 
+===========
+  main
+=========== */
+main {
+  margin-top: .5em;
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-columns: 1fr;
+      grid-template-columns: 1fr;
+  -ms-grid-rows: 0.75fr 1.5fr 0.75fr;
+      grid-template-rows: 0.75fr 1.5fr 0.75fr;
+      grid-template-areas: "ai" "centr" "human";
+  height: 90vh;
+}
+
+.center_board {
+  background-color: white;
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-columns: 1fr 1fr 1fr;
+      grid-template-columns: 1fr 1fr 1fr;
+  -ms-grid-rows: 1fr;
+      grid-template-rows: 1fr;
+      grid-template-areas: ". c d";
+  height: 100%;
+  -ms-grid-row: 2;
+  -ms-grid-column: 1;
+  grid-area: centr;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.center_board .center_card {
+  margin-block: 1em;
+  -ms-grid-row: 1;
+  -ms-grid-column: 2;
+  grid-area: c;
+  -ms-grid-column-align: center;
+      justify-self: center;
+}
+
+.center_board .draw_pile {
+  margin-block: 1em;
+  -ms-grid-row: 1;
+  -ms-grid-column: 3;
+  grid-area: d;
+  -ms-grid-column-align: end;
+      justify-self: end;
+  margin-right: 8em;
+}
+
+.center_board .draw_pile img {
+  width: 170px;
+  height: auto;
+}
+
+/* asi to přesunu do normal css kvuli js změnám */
+.player {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  height: 100%;
+}
+
+.ai {
+  -ms-grid-row: 1;
+  -ms-grid-column: 1;
+  grid-area: ai;
+  border-bottom: 1px solid #268026;
+}
+
+.human {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -ms-grid-row: 3;
+  -ms-grid-column: 1;
+  grid-area: human;
+  border-top: 1px solid #268026;
+}
+
+.human img {
+  position: relative;
+  margin-right: -50px;
+  -webkit-transform: translateX(50px);
+          transform: translateX(50px);
+  -webkit-transition: -webkit-transform 0.75s ease;
+  transition: -webkit-transform 0.75s ease;
+  transition: transform 0.75s ease;
+  transition: transform 0.75s ease, -webkit-transform 0.75s ease;
+  float: left;
+}
+
+.human img.drown {
+  -webkit-transform: translateY(0);
+          transform: translateY(0);
+}
+
+img {
+  width: 180px;
+  height: auto;
+}
+/*# sourceMappingURL=main.css.map */
