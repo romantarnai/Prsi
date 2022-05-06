@@ -102,9 +102,17 @@ main{
     align-items: center;
 
     .center_card{
+        margin-right: -50px;
         margin-block: 1em;
         grid-area: c;
         justify-self: center;
+        border: 2px dotted black;
+        border-radius: 10px;
+        width: 170px;
+        height: 232px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
     }
     .draw_pile{
         margin-block: 1em;
@@ -112,18 +120,35 @@ main{
         justify-self: end;
         margin-right: 8em;
         img{
-            width: 170px;
+            width: 155px;
             height: auto;
         }
     }
 }
 
 /* asi to přesunu do normal css kvuli js změnám */
+.center_card{
+    img{
+        position: relative;
+        transform: translateX(50px);
+        transition: transform 0.75s ease;
+        float: left;
+    }
+}
+
 .player{
     display: flex;
     flex-direction: row;
     justify-content: center;
     height: 100%;
+
+    img{
+        position: relative;
+        margin-right: -50px;
+        transform: translateX(50px);
+        transition: transform 0.75s ease;
+        float: left;
+    }
 }
 .ai{
     grid-area: ai;
@@ -135,21 +160,38 @@ main{
     justify-content: center;
     grid-area: human;
     border-top: 1px solid rgb(38, 128, 38);
-
-    img{
-        position: relative;
-        margin-right: -50px;
-        transform: translateX(50px);
-        transition: transform 0.75s ease;
-        float: left;
-
-        &.drown{
-            transform: translateY(0);
-        }
-    }
 }
 
 img{
-    width: 180px;
+    width: 165px;
     height: auto;
+
+    &.drown{
+        transform: translateY(0);
+    }
+}
+
+
+.shakeAnim{
+    animation: shake 1s ease;
+}
+@keyframes shake {
+    0%{
+        transform: rotateZ(0deg);
+    }
+    20%{
+        transform: rotateZ(25deg);
+    }
+    40%{
+        transform: rotateZ(-25deg);
+    }
+    60%{
+        transform: rotateZ(25deg);
+    }
+    80%{
+        transform: rotateZ(-25deg);
+    }
+    100%{
+        transform: rotateZ(0);
+    }
 }

@@ -127,12 +127,25 @@ main {
 }
 
 .center_board .center_card {
+  margin-right: -50px;
   margin-block: 1em;
   -ms-grid-row: 1;
   -ms-grid-column: 2;
   grid-area: c;
-  -ms-grid-column-align: center;
-      justify-self: center;
+  justify-self: center;
+  border: 2px dotted black;
+  border-radius: 10px;
+  width: 170px;
+  height: 232px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
 }
 
 .center_board .draw_pile {
@@ -146,11 +159,22 @@ main {
 }
 
 .center_board .draw_pile img {
-  width: 170px;
+  width: 155px;
   height: auto;
 }
 
 /* asi to přesunu do normal css kvuli js změnám */
+.center_card img {
+  position: relative;
+  -webkit-transform: translateX(50px);
+          transform: translateX(50px);
+  -webkit-transition: -webkit-transform 0.75s ease;
+  transition: -webkit-transform 0.75s ease;
+  transition: transform 0.75s ease;
+  transition: transform 0.75s ease, -webkit-transform 0.75s ease;
+  float: left;
+}
+
 .player {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -163,6 +187,18 @@ main {
       -ms-flex-pack: center;
           justify-content: center;
   height: 100%;
+}
+
+.player img {
+  position: relative;
+  margin-right: -50px;
+  -webkit-transform: translateX(50px);
+          transform: translateX(50px);
+  -webkit-transition: -webkit-transform 0.75s ease;
+  transition: -webkit-transform 0.75s ease;
+  transition: transform 0.75s ease;
+  transition: transform 0.75s ease, -webkit-transform 0.75s ease;
+  float: left;
 }
 
 .ai {
@@ -189,25 +225,72 @@ main {
   border-top: 1px solid #268026;
 }
 
-.human img {
-  position: relative;
-  margin-right: -50px;
-  -webkit-transform: translateX(50px);
-          transform: translateX(50px);
-  -webkit-transition: -webkit-transform 0.75s ease;
-  transition: -webkit-transform 0.75s ease;
-  transition: transform 0.75s ease;
-  transition: transform 0.75s ease, -webkit-transform 0.75s ease;
-  float: left;
+img {
+  width: 165px;
+  height: auto;
 }
 
-.human img.drown {
+img.drown {
   -webkit-transform: translateY(0);
           transform: translateY(0);
 }
 
-img {
-  width: 180px;
-  height: auto;
+.shakeAnim {
+  -webkit-animation: shake 1s ease;
+          animation: shake 1s ease;
+}
+
+@-webkit-keyframes shake {
+  0% {
+    -webkit-transform: rotateZ(0deg);
+            transform: rotateZ(0deg);
+  }
+  20% {
+    -webkit-transform: rotateZ(25deg);
+            transform: rotateZ(25deg);
+  }
+  40% {
+    -webkit-transform: rotateZ(-25deg);
+            transform: rotateZ(-25deg);
+  }
+  60% {
+    -webkit-transform: rotateZ(25deg);
+            transform: rotateZ(25deg);
+  }
+  80% {
+    -webkit-transform: rotateZ(-25deg);
+            transform: rotateZ(-25deg);
+  }
+  100% {
+    -webkit-transform: rotateZ(0);
+            transform: rotateZ(0);
+  }
+}
+
+@keyframes shake {
+  0% {
+    -webkit-transform: rotateZ(0deg);
+            transform: rotateZ(0deg);
+  }
+  20% {
+    -webkit-transform: rotateZ(25deg);
+            transform: rotateZ(25deg);
+  }
+  40% {
+    -webkit-transform: rotateZ(-25deg);
+            transform: rotateZ(-25deg);
+  }
+  60% {
+    -webkit-transform: rotateZ(25deg);
+            transform: rotateZ(25deg);
+  }
+  80% {
+    -webkit-transform: rotateZ(-25deg);
+            transform: rotateZ(-25deg);
+  }
+  100% {
+    -webkit-transform: rotateZ(0);
+            transform: rotateZ(0);
+  }
 }
 /*# sourceMappingURL=main.css.map */
