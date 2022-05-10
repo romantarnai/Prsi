@@ -32,12 +32,11 @@ main {
     flex-direction: row;
     align-items: flex-start;
     column-gap: 5em;
+    margin-bottom: 6em;
   }
 
   .score_who {
-    display: flex;
+    @include flex-center;
     flex-direction: column;
-    justify-content: center;
-    align-items: center;
   }
 }
