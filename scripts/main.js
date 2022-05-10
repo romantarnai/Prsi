@@ -86,7 +86,9 @@ const aiPlay = () => {
             aiCards = aiCards.filter((y) => y.image != x.image);
             played = true;
             ai.removeChild(ai.lastChild);
-            renew();
+            setTimeout(()=>{
+                renew();
+            }, 150)
         }
     });
 
@@ -94,7 +96,7 @@ const aiPlay = () => {
         drawAi(1);
     }
 
-    canPlay = true;
+    canPlay = true
 };
 
 /* 
@@ -149,6 +151,7 @@ const drawPlayer = async (amount) => {
                     setTimeout(() => {
                         aiPlay();
                     }, 1000);
+                    
                 } else {
                     e.target.classList.remove("shakeAnim");
                     e.target.offsetWidth;
@@ -186,9 +189,17 @@ const renew = () => {
             x.style.visibility = "hidden";
             x.offsetWidth;
             setTimeout(() => {
-                x.style.visibility = "visible";
                 x.src = boardCards[0].image;
+                x.style.visibility = "visible";
                 x.classList.add("drown");
+
+                setTimeout(()=>{
+                    if(aiCards.length == 0){
+                        won("ai")
+                    } else if(humanCards.length == 0){
+                        won("human")
+                    }
+                }, 300) // to start after we place the last card to center
             }, 250);
         }
     });
@@ -221,9 +232,24 @@ start();
 lízání na klik
 ===============*/
 drawPile.addEventListener("click", () => {
-    drawPlayer(1);
-    canPlay = false;
-    setTimeout(() => {
-        aiPlay();
-    }, 1000);
+    if(canPlay){
+        drawPlayer(1);
+        canPlay = false;
+        setTimeout(() => {
+            aiPlay();
+        }, 1000);
+    }
 });
+
+
+/* 
+===============
+kontrola výhry
+===============*/
+const won = who => {
+    if(who == "ai"){
+        alert("ai won")
+    } else if(who == "human"){
+        alert("human won")
+    }
+}

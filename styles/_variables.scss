@@ -1,2 +1,8 @@
 $navbarHeight: 7vh;
 $mainColor: rgb(38, 128, 38);
+
+@mixin flex-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

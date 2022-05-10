@@ -1,0 +1,43 @@
+@import "./variables";
+
+nav {
+  justify-content: center;
+  align-items: center;
+}
+
+main {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: auto;
+
+  h1 {
+    font-size: 3.5rem;
+    margin-bottom: 2em;
+  }
+  h2 {
+    font-size: 2.5rem;
+    margin-bottom: 1em;
+  }
+  h3 {
+    font-size: 2.3rem;
+  }
+  h4 {
+    font-size: 1.2rem;
+  }
+
+  .score_values {
+    @include flex-center;
+    flex-direction: row;
+    align-items: flex-start;
+    column-gap: 5em;
+  }
+
+  .score_who {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+}
