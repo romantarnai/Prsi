@@ -1,0 +1,130 @@
+@import url("https://fonts.googleapis.com/css2?family=Blinker:wght@100;200;300;400;600;700;800;900&display=swap");
+/* globals */
+body {
+  background-color: whitesmoke;
+  min-height: 100vh;
+  overflow: hidden;
+}
+
+*, *::after, *::before {
+  font-family: 'Blinker', sans-serif;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+
+/* 
+===========
+  navbar
+=========== */
+nav {
+  top: 0;
+  left: 0;
+  right: 0;
+  background-color: #268026;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  padding-inline: 3em;
+  height: -webkit-max-content;
+  height: -moz-max-content;
+  height: max-content;
+}
+
+nav .nav_title {
+  font-size: 2.3rem;
+  font-weight: 600;
+  color: white;
+  margin-block: .25em;
+}
+
+nav ul {
+  list-style: none;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -webkit-column-gap: 3em;
+          column-gap: 3em;
+}
+
+nav ul li a {
+  position: relative;
+  color: white;
+  text-decoration: none;
+  font-size: 1.2rem;
+}
+
+nav ul li a::after {
+  content: "";
+  background-color: white;
+  position: absolute;
+  bottom: -2px;
+  height: 2px;
+  left: 50%;
+  -webkit-transform: translateX(-50%);
+          transform: translateX(-50%);
+  width: 0;
+  -webkit-transition: all 0.3s ease-out;
+  transition: all 0.3s ease-out;
+}
+
+nav ul li a:hover::after {
+  width: 100%;
+}
+
+/* button */
+.btn {
+  position: relative;
+  font-size: 1.5rem;
+  padding-inline: 2em;
+  padding-block: .5em;
+  border-radius: 10px;
+  background: none;
+  color: #268026;
+  border: 2px solid #268026;
+  cursor: pointer;
+  -webkit-transition: color 0.5s ease;
+  transition: color 0.5s ease;
+}
+
+.btn::after {
+  content: "";
+  z-index: -1;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
+  background-color: #268026;
+  width: 0;
+  height: 102%;
+  border-radius: 7px;
+  -webkit-transition: all 0.5s ease-out;
+  transition: all 0.5s ease-out;
+}
+
+.btn:hover::after {
+  width: 100%;
+}
+
+.btn:hover {
+  color: white;
+}
+/*# sourceMappingURL=global.css.map */

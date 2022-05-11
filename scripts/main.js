@@ -113,6 +113,13 @@ const drawPlayer = async (amount) => {
         const card = document.createElement("img");
         card.src = x.image;
 
+        /* přidá kartu do hráčovi ruky */
+        human.appendChild(card);
+        setTimeout(() => {
+            card.classList.add("drown");
+        }, 50);
+
+        /* eventlisteners na prohlížení karet */
         card.addEventListener("mouseover", (e) => {
             e.target.style.zIndex = 1;
         });
@@ -120,10 +127,12 @@ const drawPlayer = async (amount) => {
             e.target.style.zIndex = 0;
         });
 
+        /* eventlistener na zahrání karty */
         card.addEventListener("click", (e) => {
             if (canPlay) {
                 let viablePlay = false;
 
+                /* najde data ke kartě a provede kontrola jestli je karta hratelná */
                 humanCards.map((x) => {
                     if (x.image == e.target.src) {
                         if (control(boardCards[0], x)) {
@@ -132,6 +141,7 @@ const drawPlayer = async (amount) => {
                     }
                 });
 
+                /* jestli karta je hratelná odeber ji z ruky a přidej do středu */
                 if (viablePlay) {
                     humanCards.map((x) => {
                         if (x.image == e.target.src) {
@@ -149,6 +159,8 @@ const drawPlayer = async (amount) => {
                     setTimeout(() => {
                         aiPlay();
                     }, 1000);
+
+                    /* animace když karta není hratelná */
                 } else {
                     e.target.classList.remove("shakeAnim");
                     e.target.offsetWidth;
@@ -156,11 +168,6 @@ const drawPlayer = async (amount) => {
                 }
             }
         });
-
-        human.appendChild(card);
-        setTimeout(() => {
-            card.classList.add("drown");
-        }, 50);
     });
 };
 
@@ -245,8 +252,10 @@ kontrola výhry
 ===============*/
 const won = (who) => {
     if (who == "ai") {
-        alert("ai won");
+        window.location.href = "../gameOver.html";
+        alert("ai won"); // vyměnit za přesun dat pro gameover stránku asi pomocí localStorage
     } else if (who == "human") {
+        window.location.href = "../gameOver.html";
         alert("human won");
     }
 };

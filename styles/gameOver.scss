@@ -5,12 +5,15 @@ nav {
   align-items: center;
 }
 
+body{
+  overflow: hidden;
+}
+
 main {
-  display: flex;
+  @include flex-center;
   flex-direction: column;
-  justify-content: center;
-  align-items: center;
   margin: auto;
+  height: 100vh;
 
   h1 {
     font-size: 3.5rem;
@@ -38,5 +41,11 @@ main {
   .score_who {
     @include flex-center;
     flex-direction: column;
+  }
+
+  .gameOver_btn{
+    @include flex-center;
+    flex-direction: row;
+    column-gap: 5em;
   }
 }

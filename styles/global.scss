@@ -1,0 +1,107 @@
+@import url('https://fonts.googleapis.com/css2?family=Blinker:wght@100;200;300;400;600;700;800;900&display=swap');
+@import "./variables";
+
+/* globals */
+body{
+    background-color: whitesmoke;
+    min-height: 100vh;
+    overflow: hidden;
+}
+*, *::after, *::before{
+    font-family: 'Blinker', sans-serif;
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+}
+
+/* 
+===========
+  navbar
+=========== */ 
+nav{
+    top: 0;
+    left: 0;
+    right: 0;
+    background-color: $mainColor;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-inline: 3em;
+    height: max-content;
+
+    .nav_title{
+        font-size: 2.3rem;
+        font-weight: 600;
+        color: white;
+        margin-block: .25em;
+    }
+
+    ul{
+        list-style: none;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: row;
+        column-gap: 3em;
+
+        li a{
+            position: relative;
+            color: white;
+            text-decoration: none;
+            font-size: 1.2rem;
+
+            &::after{
+                content: "";
+                background-color: white;
+                position: absolute;
+                bottom: -2px;
+                height: 2px;
+                left: 50%;
+                transform: translateX(-50%);
+                width: 0;
+                transition: all 0.3s ease-out;
+            }
+
+            &:hover::after{
+                width: 100%;
+            }
+        }
+    }
+}
+
+
+/* button */
+.btn{
+    position: relative;
+    font-size: 1.5rem;
+    padding-inline: 2em;
+    padding-block: .5em;
+    border-radius: 10px;
+    background: none;
+    color: $mainColor;
+    border: 2px solid $mainColor;
+    cursor: pointer;
+    transition: color 0.5s ease;
+
+    &::after{
+        content: "";
+        z-index: -1;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background-color: $mainColor;
+        width: 0;
+        height: 102%;
+        border-radius: 7px;
+        transition: all 0.5s ease-out;
+    }
+
+    &:hover::after{
+        width: 100%;
+    }
+
+    &:hover{
+        color: white;
+    }
+}
