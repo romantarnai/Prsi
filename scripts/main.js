@@ -86,9 +86,7 @@ const aiPlay = () => {
             aiCards = aiCards.filter((y) => y.image != x.image);
             played = true;
             ai.removeChild(ai.lastChild);
-            setTimeout(()=>{
-                renew();
-            }, 150)
+            renew();
         }
     });
 
@@ -96,7 +94,7 @@ const aiPlay = () => {
         drawAi(1);
     }
 
-    canPlay = true
+    canPlay = true;
 };
 
 /* 
@@ -151,7 +149,6 @@ const drawPlayer = async (amount) => {
                     setTimeout(() => {
                         aiPlay();
                     }, 1000);
-                    
                 } else {
                     e.target.classList.remove("shakeAnim");
                     e.target.offsetWidth;
@@ -187,19 +184,20 @@ const renew = () => {
         if (x.nodeType != 3) {
             x.classList.remove("drown");
             x.style.visibility = "hidden";
-            x.offsetWidth;
             setTimeout(() => {
                 x.src = boardCards[0].image;
-                x.style.visibility = "visible";
-                x.classList.add("drown");
+                setTimeout(() => {
+                    x.style.visibility = "visible";
+                    x.classList.add("drown");
+                }, 100);
 
-                setTimeout(()=>{
-                    if(aiCards.length == 0){
-                        won("ai")
-                    } else if(humanCards.length == 0){
-                        won("human")
+                setTimeout(() => {
+                    if (aiCards.length == 0) {
+                        won("ai");
+                    } else if (humanCards.length == 0) {
+                        won("human");
                     }
-                }, 300) // to start after we place the last card to center
+                }, 300); // to start after we place the last card to center
             }, 250);
         }
     });
@@ -232,7 +230,7 @@ start();
 lízání na klik
 ===============*/
 drawPile.addEventListener("click", () => {
-    if(canPlay){
+    if (canPlay) {
         drawPlayer(1);
         canPlay = false;
         setTimeout(() => {
@@ -241,15 +239,14 @@ drawPile.addEventListener("click", () => {
     }
 });
 
-
 /* 
 ===============
 kontrola výhry
 ===============*/
-const won = who => {
-    if(who == "ai"){
-        alert("ai won")
-    } else if(who == "human"){
-        alert("human won")
+const won = (who) => {
+    if (who == "ai") {
+        alert("ai won");
+    } else if (who == "human") {
+        alert("human won");
     }
-}
+};
