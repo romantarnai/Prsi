@@ -24,7 +24,7 @@ hodnoty.map((x) => {
 ========================
  získa počáteční deckId
 ========================*/
-const getData = async () => {
+const GetData = async () => {
     let res = await fetch(`https://deckofcardsapi.com/api/deck/new/shuffle/?cards=${kartyNaPrsi}`);
     let data = await res.json();
     deck_id = data.deck_id;
@@ -34,7 +34,7 @@ const getData = async () => {
 ====================
 lízne kartu na střed
 ====================*/
-const drawToCenter = async () => {
+const DrawToCenter = async () => {
     let drawn_cards = await fetch(`https://deckofcardsapi.com/api/deck/${deck_id}/draw/?count=1`);
     drawn_cards = await drawn_cards.json();
     drawn_cards.cards.map((x) => {
@@ -56,7 +56,7 @@ const drawToCenter = async () => {
 ===============
  ai lízne kartu
 ===============*/
-const drawAi = async (amount) => {
+const DrawAi = async (amount) => {
     let drawn_cards = await fetch(`https://deckofcardsapi.com/api/deck/${deck_id}/draw/?count=${amount}`);
     drawn_cards = await drawn_cards.json();
     drawn_cards.cards.map((x) => {
@@ -78,20 +78,20 @@ const drawAi = async (amount) => {
 ===============
     tah ai
 ===============*/
-const aiPlay = () => {
+const AiPlay = () => {
     let played = false;
     aiCards.map((x) => {
-        if (control(boardCards[0], x) && !played) {
+        if (Control(boardCards[0], x) && !played) {
             boardCards.unshift(x);
             aiCards = aiCards.filter((y) => y.image != x.image);
             played = true;
             ai.removeChild(ai.lastChild);
-            renew();
+            Renew();
         }
     });
 
     if (!played) {
-        drawAi(1);
+        DrawAi(1);
     }
 
     canPlay = true;
@@ -101,7 +101,7 @@ const aiPlay = () => {
 ===================
 hráč si lízne kartu (přidá evenListenry pro manipulaci s kartama)
 ===================*/
-const drawPlayer = async (amount) => {
+const DrawPlayer = async (amount) => {
     let drawn_cards = await fetch(`https://deckofcardsapi.com/api/deck/${deck_id}/draw/?count=${amount}`);
     drawn_cards = await drawn_cards.json();
     drawn_cards.cards.map((x) => {
@@ -127,55 +127,65 @@ const drawPlayer = async (amount) => {
             e.target.style.zIndex = 0;
         });
 
-        /* eventlistener na zahrání karty */
+        /* ===== eventlistener na zahrání karty ==== */
         card.addEventListener("click", (e) => {
-            if (canPlay) {
-                let viablePlay = false;
-
-                /* najde data ke kartě a provede kontrola jestli je karta hratelná */
-                humanCards.map((x) => {
-                    if (x.image == e.target.src) {
-                        if (control(boardCards[0], x)) {
-                            viablePlay = true;
-                        }
-                    }
-                });
-
-                /* jestli karta je hratelná odeber ji z ruky a přidej do středu */
-                if (viablePlay) {
-                    humanCards.map((x) => {
-                        if (x.image == e.target.src) {
-                            boardCards.unshift(x);
-                        }
-                    });
-                    humanCards = humanCards.filter((x) => x.image != e.target.src);
-
-                    Array.from(human.childNodes).map((c) => {
-                        if (c.src == e.target.src) c.remove();
-                    });
-
-                    canPlay = false;
-                    renew();
-                    setTimeout(() => {
-                        aiPlay();
-                    }, 1000);
-
-                    /* animace když karta není hratelná */
-                } else {
-                    e.target.classList.remove("shakeAnim");
-                    e.target.offsetWidth;
-                    e.target.classList.add("shakeAnim");
-                }
+            if (!canPlay) {
+                WrongMove(e.target);
+                return;
             }
+
+            let viablePlay = false;
+
+            /* najde data ke kartě a provede kontrola jestli je karta hratelná */
+            humanCards.map((x) => {
+                if (x.image == e.target.src) {
+                    if (Control(boardCards[0], x)) {
+                        viablePlay = true;
+                    }
+                }
+            });
+
+            /* jestli karta je hratelná odeber ji z ruky a přidej do středu */
+            if (!viablePlay) {
+                WrongMove(e.target);
+                return;
+            }
+
+            humanCards.map((x) => {
+                if (x.image == e.target.src) {
+                    boardCards.unshift(x);
+                }
+            });
+            humanCards = humanCards.filter((x) => x.image != e.target.src);
+
+            Array.from(human.childNodes).map((c) => {
+                if (c.src == e.target.src) c.remove();
+            });
+
+            canPlay = false;
+            Renew();
+            setTimeout(() => {
+                AiPlay();
+            }, 1000);
         });
     });
 };
 
 /* 
 ======================
+animace pro neplatný tah
+====================== */
+const WrongMove = (target) => {
+    target.classList.remove("shakeAnim");
+    target.offsetWidth;
+    target.classList.add("shakeAnim");
+};
+
+/* 
+======================
 kontrola platného tahu
 ====================== */
-const control = (card1, card2) => {
+const Control = (card1, card2) => {
     // card 1 == karta ve středu
     if (card1.value == card2.value) return true;
     else if (card1.suit == card2.suit) return true;
@@ -186,7 +196,7 @@ const control = (card1, card2) => {
 ======================
 obnoví kartu uprostřed
 ======================*/
-const renew = () => {
+const Renew = () => {
     Array.from(center.childNodes).map((x) => {
         if (x.nodeType != 3) {
             x.classList.remove("drown");
@@ -200,9 +210,9 @@ const renew = () => {
 
                 setTimeout(() => {
                     if (aiCards.length == 0) {
-                        won("ai");
+                        Won("ai");
                     } else if (humanCards.length == 0) {
-                        won("human");
+                        Won("human");
                     }
                 }, 300); // to start after we place the last card to center
             }, 250);
@@ -212,36 +222,14 @@ const renew = () => {
 
 /* 
 ===============
-   start hry
-===============*/
-const start = async () => {
-    await getData();
-    for (let i = 0; i < 5; i++) {
-        setTimeout(() => {
-            drawPlayer(1);
-            drawAi(1);
-        }, i * 350);
-    }
-
-    setTimeout(() => {
-        drawToCenter();
-    }, 350 * 5);
-
-    canPlay = true;
-};
-
-start();
-
-/* 
-===============
 lízání na klik
 ===============*/
 drawPile.addEventListener("click", () => {
     if (canPlay) {
-        drawPlayer(1);
+        DrawPlayer(1);
         canPlay = false;
         setTimeout(() => {
-            aiPlay();
+            AiPlay();
         }, 1000);
     }
 });
@@ -250,12 +238,34 @@ drawPile.addEventListener("click", () => {
 ===============
 kontrola výhry
 ===============*/
-const won = (who) => {
+const Won = (who) => {
     if (who == "ai") {
         window.location.href = "../gameOver.html";
-        alert("ai won"); // vyměnit za přesun dat pro gameover stránku asi pomocí localStorage
+        alert("ai Won"); // vyměnit za přesun dat pro gameover stránku asi pomocí localStorage
     } else if (who == "human") {
         window.location.href = "../gameOver.html";
-        alert("human won");
+        alert("human Won");
     }
 };
+
+/* 
+===============
+   Start hry
+===============*/
+const Start = async () => {
+    await GetData();
+    for (let i = 0; i < 5; i++) {
+        setTimeout(() => {
+            DrawPlayer(1);
+            DrawAi(1);
+        }, i * 350);
+    }
+
+    setTimeout(() => {
+        DrawToCenter();
+    }, 350 * 5);
+
+    canPlay = true;
+};
+
+Start();
