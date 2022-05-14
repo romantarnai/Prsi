@@ -66,7 +66,7 @@ const DrawAi = async (amount) => {
 
     drawn_cards.cards.map((x) => {
         const card = document.createElement("img");
-        card.src = "../images/card_back.png";
+        card.src = "images/card_back.png";
 
         ai.appendChild(card);
         setTimeout(() => {
@@ -83,7 +83,7 @@ const AiPlay = () => {
     let played = false;
     aiCards.map((x) => {
         if (Control(boardCards[0], x) && !played) {
-            coin.style.backgroundImage = `url(/images/${x.suit}.png)`;
+            coin.style.backgroundImage = `url(images/${x.suit}.png)`;
             boardCards.unshift(x);
             aiCards = aiCards.filter((y) => y.image != x.image);
             played = true;
@@ -156,7 +156,7 @@ const DrawPlayer = async (amount) => {
 
             humanCards.map((x) => {
                 if (x.image == e.target.src) {
-                    coin.style.backgroundImage = `url(/images/${x.suit}.png)`;
+                    coin.style.backgroundImage = `url(images/${x.suit}.png)`;
                     boardCards.unshift(x);
                 }
             });
@@ -246,10 +246,10 @@ kontrola výhry
 ===============*/
 const Won = (who) => {
     if (who == "ai") {
-        window.location.href = "../gameOver.html";
+        window.location.href = "gameOver.html";
         alert("ai Won"); // vyměnit za přesun dat pro gameover stránku asi pomocí localStorage
     } else if (who == "human") {
-        window.location.href = "../gameOver.html";
+        window.location.href = "gameOver.html";
         alert("human Won");
     }
 };
