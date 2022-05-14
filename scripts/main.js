@@ -2,6 +2,7 @@ const human = document.getElementById("human");
 const ai = document.getElementById("ai");
 const center = document.getElementById("center");
 const drawPile = document.getElementById("draw");
+const coin = document.getElementById("coin");
 let humanCards = [];
 let aiCards = [];
 let boardCards = [];
@@ -82,6 +83,7 @@ const AiPlay = () => {
     let played = false;
     aiCards.map((x) => {
         if (Control(boardCards[0], x) && !played) {
+            coin.style.backgroundImage = `url(/images/${x.suit}.png)`;
             boardCards.unshift(x);
             aiCards = aiCards.filter((y) => y.image != x.image);
             played = true;
@@ -94,6 +96,7 @@ const AiPlay = () => {
         DrawAi(1);
     }
 
+    CoinMove("human");
     canPlay = true;
 };
 
@@ -153,6 +156,7 @@ const DrawPlayer = async (amount) => {
 
             humanCards.map((x) => {
                 if (x.image == e.target.src) {
+                    coin.style.backgroundImage = `url(/images/${x.suit}.png)`;
                     boardCards.unshift(x);
                 }
             });
@@ -164,9 +168,10 @@ const DrawPlayer = async (amount) => {
 
             canPlay = false;
             Renew();
+            CoinMove("ai");
             setTimeout(() => {
                 AiPlay();
-            }, 1000);
+            }, Math.floor(Math.random() * 2500) + 1000); // random int from 1000 - 3500
         });
     });
 };
@@ -228,9 +233,10 @@ drawPile.addEventListener("click", () => {
     if (canPlay) {
         DrawPlayer(1);
         canPlay = false;
+        CoinMove("ai");
         setTimeout(() => {
             AiPlay();
-        }, 1000);
+        }, Math.floor(Math.random() * 2500) + 1000); // random int from 1000 - 3500
     }
 });
 
@@ -249,6 +255,18 @@ const Won = (who) => {
 };
 
 /* 
+=============================
+přehodí žeton na druhou stranu
+=============================*/
+const CoinMove = (where) => {
+    if (where == "human") {
+        coin.style.bottom = "5%";
+    } else if (where == "ai") {
+        coin.style.bottom = "70%";
+    }
+};
+
+/*
 ===============
    Start hry
 ===============*/

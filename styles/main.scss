@@ -18,21 +18,37 @@ main{
 }
 
 .center_board{
+    position: relative;
     background-color: white;
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
     grid-template-rows: 1fr;
     grid-template-areas: 
-    ". c d"
+    "cn ct dr"
     ;
     height: 100%;
     grid-area: centr;
     align-items: center;
 
+    .coin{
+        position: absolute;
+        bottom: 5%;
+        grid-area: cn;
+        background-image: url("/images/DIAMONDS.png");
+        background-repeat: no-repeat;
+        background-position: center;
+        background-size: 70%;
+        border-radius: 100%;
+        border: 3px solid black;
+        width: 100px;
+        height: 100px;
+        justify-self: center;
+        transition: bottom 1s ease-out;
+    }
     .center_card{
         margin-right: -50px;
         margin-block: 1em;
-        grid-area: c;
+        grid-area: ct;
         justify-self: center;
         border: 2px dotted black;
         border-radius: 10px;
@@ -44,7 +60,7 @@ main{
     }
     .draw_pile{
         margin-block: 1em;
-        grid-area: d;
+        grid-area: dr;
         justify-self: end;
         margin-right: 8em;
         img{

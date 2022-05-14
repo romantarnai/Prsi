@@ -16,6 +16,7 @@ main {
 }
 
 .center_board {
+  position: relative;
   background-color: white;
   display: -ms-grid;
   display: grid;
@@ -23,7 +24,7 @@ main {
       grid-template-columns: 1fr 1fr 1fr;
   -ms-grid-rows: 1fr;
       grid-template-rows: 1fr;
-      grid-template-areas: ". c d";
+      grid-template-areas: "cn ct dr";
   height: 100%;
   -ms-grid-row: 2;
   -ms-grid-column: 1;
@@ -33,12 +34,32 @@ main {
           align-items: center;
 }
 
+.center_board .coin {
+  position: absolute;
+  bottom: 5%;
+  -ms-grid-row: 1;
+  -ms-grid-column: 1;
+  grid-area: cn;
+  background-image: url("/images/DIAMONDS.png");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 70%;
+  border-radius: 100%;
+  border: 3px solid black;
+  width: 100px;
+  height: 100px;
+  -ms-grid-column-align: center;
+      justify-self: center;
+  -webkit-transition: bottom 1s ease-out;
+  transition: bottom 1s ease-out;
+}
+
 .center_board .center_card {
   margin-right: -50px;
   margin-block: 1em;
   -ms-grid-row: 1;
   -ms-grid-column: 2;
-  grid-area: c;
+  grid-area: ct;
   justify-self: center;
   border: 2px dotted black;
   border-radius: 10px;
@@ -59,7 +80,7 @@ main {
   margin-block: 1em;
   -ms-grid-row: 1;
   -ms-grid-column: 3;
-  grid-area: d;
+  grid-area: dr;
   -ms-grid-column-align: end;
       justify-self: end;
   margin-right: 8em;
