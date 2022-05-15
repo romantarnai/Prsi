@@ -213,13 +213,16 @@ const Renew = () => {
                     x.classList.add("drown");
                 }, 100);
 
-                setTimeout(() => {
-                    if (aiCards.length == 0) {
-                        Won("ai");
-                    } else if (humanCards.length == 0) {
-                        Won("human");
-                    }
-                }, 300); // to start after we place the last card to center
+                /* move to game over screen with delay dont set the timeout when not needed */
+                if (aiCards.length != 0 || humanCards.length != 0) {
+                    setTimeout(() => {
+                        if (aiCards.length == 0) {
+                            Won("ai");
+                        } else if (humanCards.length == 0) {
+                            Won("human");
+                        }
+                    }, 500); // to start after we place the last card to center
+                }
             }, 250);
         }
     });
@@ -246,12 +249,29 @@ kontrola výhry
 ===============*/
 const Won = (who) => {
     if (who == "ai") {
-        window.location.href = "gameOver.html";
-        alert("ai Won"); // vyměnit za přesun dat pro gameover stránku asi pomocí localStorage
+        SetScore(who);
     } else if (who == "human") {
-        window.location.href = "gameOver.html";
-        alert("human Won");
+        SetScore(who);
     }
+};
+/* přenastavení skóre */
+const SetScore = (who) => {
+    let h = 0;
+    let a = 0;
+    /* set score */
+    if (localStorage.getItem("score") != null) {
+        const score = localStorage.getItem("score").split(":");
+        h = score[0];
+        a = score[1];
+    }
+
+    who == "ai" ? a++ : null;
+    who == "human" ? h++ : null;
+
+    localStorage.setItem("whoWon", who);
+    localStorage.setItem("score", `${h}:${a}`);
+    /* move to game over screen */
+    window.location.href = "gameOver.html";
 };
 
 /* 
