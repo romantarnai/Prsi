@@ -12,6 +12,9 @@ let deck_id = null;
 let canPlay = false;
 
 /* variables for special cards */
+let eso = false;
+let aiStop = false;
+let sedma = false;
 let kolikLizes = 0;
 
 /* balicek na prsi */
@@ -93,7 +96,10 @@ const AiPlay = () => {
         if (Control(boardCards[0], x) && !played) {
             coin.style.backgroundImage = `url(images/${x.suit}.png)`;
             /* special card played */
-            if (x.value == "7") kolikLizes += 2;
+            if (x.value == "7") {
+                sedma = true;
+                kolikLizes += 2;
+            } else if (x.value == "ACE") eso = true;
 
             boardCards.unshift(x);
             aiCards = aiCards.filter((y) => y.image != x.image);
@@ -103,6 +109,11 @@ const AiPlay = () => {
         }
     });
 
+    if (eso && !played) {
+        PassPath();
+        return;
+    }
+
     if (!played) {
         if (kolikLizes == 0) DrawAi(1);
         else {
@@ -111,6 +122,8 @@ const AiPlay = () => {
                     DrawAi(2);
                 }, i * 350);
             }
+            sedma = false;
+            kolikLizes = 0;
         }
     }
 
@@ -123,21 +136,24 @@ const AiPlay = () => {
 lízání na klik
 ===============*/
 drawPile.addEventListener("click", () => {
-    if (canPlay) {
-        if (kolikLizes == 0) DrawPlayer(1);
-        else {
-            for (let i = 0; i < kolikLizes / 2; i++) {
-                setTimeout(() => {
-                    DrawPlayer(2);
-                }, i * 350);
-            }
+    if (eso) return;
+    if (!canPlay) return;
+
+    if (kolikLizes == 0) DrawPlayer(1);
+    else {
+        for (let i = 0; i < kolikLizes / 2; i++) {
+            setTimeout(() => {
+                DrawPlayer(2);
+            }, i * 350);
         }
-        canPlay = false;
-        CoinMove("ai");
-        setTimeout(() => {
-            AiPlay();
-        }, Math.floor(Math.random() * 2500) + 1000); // random int from 1000 - 3500
+        sedma = false;
+        kolikLizes = 0;
     }
+    canPlay = false;
+    CoinMove("ai");
+    setTimeout(() => {
+        AiPlay();
+    }, Math.floor(Math.random() * 2500) + 1000); // random int from 1000 - 3500
 });
 /* 
 ===================
@@ -200,7 +216,10 @@ const DrawPlayer = async (amount) => {
                 if (x.image == e.target.src) {
                     coin.style.backgroundImage = `url(images/${x.suit}.png)`;
                     /* special card played */
-                    if (x.value == "7") kolikLizes += 2;
+                    if (x.value == "7") {
+                        sedma = true;
+                        kolikLizes += 2;
+                    } else if (x.value == "ACE") eso = true;
 
                     boardCards.unshift(x);
                 }
@@ -232,13 +251,39 @@ const WrongMove = (target) => {
 
 /* 
 ======================
+animace pro neplatný tah
+====================== */
+coin.addEventListener("click", () => {
+    if (!eso) return;
+
+    PassPath();
+});
+const PassPath = () => {
+    if (canPlay) {
+        canPlay = false;
+        CoinMove("ai");
+        setTimeout(() => {
+            AiPlay();
+        }, Math.floor(Math.random() * 2500) + 1000); // random int from 1000 - 3500
+    } else {
+        canPlay = true;
+        CoinMove("human");
+        console.log("human is playing");
+    }
+
+    eso = false;
+};
+
+/* 
+======================
 kontrola platného tahu
 ====================== */
 const Control = (card1, card2) => {
     // card 1 == karta ve středu
 
     /* else if (card1.value == "ACE" && card2.value != "ACE") return false; */
-    if (card1.value == "7" && card2.value != "7") return false;
+    if (eso && card2.value != "ACE") return false;
+    else if (sedma && card2.value != "7") return false;
     else if (card1.value == card2.value) return true;
     else if (card1.suit == card2.suit) return true;
     else return false;
