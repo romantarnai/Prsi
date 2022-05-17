@@ -4,7 +4,7 @@
   main
 =========== */
 main {
-  margin-top: .5em;
+  margin-top: 0.5em;
   display: -ms-grid;
   display: grid;
   -ms-grid-columns: 1fr;
@@ -40,7 +40,6 @@ main {
   -ms-grid-row: 1;
   -ms-grid-column: 1;
   grid-area: cn;
-  background-image: url("../../images/DIAMONDS.png");
   background-repeat: no-repeat;
   background-position: center;
   background-size: 70%;

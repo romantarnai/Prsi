@@ -3,139 +3,134 @@
 /* 
 ===========
   main
-=========== */ 
-main{
-    margin-top: .5em;
-    display: grid;
-    grid-template-columns: 1fr;
-    grid-template-rows: 0.75fr 1.5fr 0.75fr;
-    grid-template-areas: 
+=========== */
+main {
+  margin-top: 0.5em;
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: 0.75fr 1.5fr 0.75fr;
+  grid-template-areas:
     "ai"
     "centr"
-    "human"
-    ;
-    height: 90vh;
+    "human";
+  height: 90vh;
 }
 
-.center_board{
-    position: relative;
-    background-color: white;
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
-    grid-template-rows: 1fr;
-    grid-template-areas: 
-    "cn ct dr"
-    ;
-    height: 100%;
-    grid-area: centr;
-    align-items: center;
+.center_board {
+  position: relative;
+  background-color: white;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-rows: 1fr;
+  grid-template-areas: "cn ct dr";
+  height: 100%;
+  grid-area: centr;
+  align-items: center;
 
-    .coin{
-        position: absolute;
-        bottom: 5%;
-        grid-area: cn;
-        background-image: url("../../images/DIAMONDS.png");
-        background-repeat: no-repeat;
-        background-position: center;
-        background-size: 70%;
-        border-radius: 100%;
-        border: 3px solid black;
-        width: 100px;
-        height: 100px;
-        justify-self: center;
-        transition: bottom 1s ease-out;
+  .coin {
+    position: absolute;
+    bottom: 5%;
+    grid-area: cn;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 70%;
+    border-radius: 100%;
+    border: 3px solid black;
+    width: 100px;
+    height: 100px;
+    justify-self: center;
+    transition: bottom 1s ease-out;
+  }
+  .center_card {
+    margin-right: -50px;
+    margin-block: 1em;
+    grid-area: ct;
+    justify-self: center;
+    border: 2px dotted black;
+    border-radius: 10px;
+    width: 170px;
+    height: 232px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .draw_pile {
+    margin-block: 1em;
+    grid-area: dr;
+    justify-self: end;
+    margin-right: 8em;
+    img {
+      width: 155px;
+      height: auto;
     }
-    .center_card{
-        margin-right: -50px;
-        margin-block: 1em;
-        grid-area: ct;
-        justify-self: center;
-        border: 2px dotted black;
-        border-radius: 10px;
-        width: 170px;
-        height: 232px;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-    }
-    .draw_pile{
-        margin-block: 1em;
-        grid-area: dr;
-        justify-self: end;
-        margin-right: 8em;
-        img{
-            width: 155px;
-            height: auto;
-        }
-    }
+  }
 }
 
 /* asi to přesunu do normal css kvuli js změnám */
-.center_card{
-    img{
-        position: relative;
-        transform: translateX(50px);
-        transition: transform 0.75s ease;
-        float: left;
-    }
+.center_card {
+  img {
+    position: relative;
+    transform: translateX(50px);
+    transition: transform 0.75s ease;
+    float: left;
+  }
 }
 
-.player{
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    height: 100%;
+.player {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  height: 100%;
 
-    img{
-        position: relative;
-        margin-right: -50px;
-        transform: translateX(50px);
-        transition: transform 0.75s ease;
-        float: left;
-    }
+  img {
+    position: relative;
+    margin-right: -50px;
+    transform: translateX(50px);
+    transition: transform 0.75s ease;
+    float: left;
+  }
 }
-.ai{
-    grid-area: ai;
-    border-bottom: 1px solid $mainColor;
+.ai {
+  grid-area: ai;
+  border-bottom: 1px solid $mainColor;
 }
-.human{
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    grid-area: human;
-    border-top: 1px solid $mainColor;
-}
-
-img{
-    width: 165px;
-    height: auto;
-
-    &.drown{
-        transform: translateY(0);
-    }
+.human {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  grid-area: human;
+  border-top: 1px solid $mainColor;
 }
 
+img {
+  width: 165px;
+  height: auto;
 
-.shakeAnim{
-    animation: shake 1s ease;
+  &.drown {
+    transform: translateY(0);
+  }
+}
+
+.shakeAnim {
+  animation: shake 1s ease;
 }
 @keyframes shake {
-    0%{
-        transform: rotateZ(0deg);
-    }
-    20%{
-        transform: rotateZ(25deg);
-    }
-    40%{
-        transform: rotateZ(-25deg);
-    }
-    60%{
-        transform: rotateZ(25deg);
-    }
-    80%{
-        transform: rotateZ(-25deg);
-    }
-    100%{
-        transform: rotateZ(0);
-    }
+  0% {
+    transform: rotateZ(0deg);
+  }
+  20% {
+    transform: rotateZ(25deg);
+  }
+  40% {
+    transform: rotateZ(-25deg);
+  }
+  60% {
+    transform: rotateZ(25deg);
+  }
+  80% {
+    transform: rotateZ(-25deg);
+  }
+  100% {
+    transform: rotateZ(0);
+  }
 }
