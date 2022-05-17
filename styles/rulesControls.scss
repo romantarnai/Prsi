@@ -10,6 +10,13 @@ main {
     margin-bottom: 1em;
   }
 
+  .vysvetlivka {
+    max-width: 50%;
+    margin-bottom: 2em;
+    font-size: 1.1rem;
+    align-self: center;
+  }
+
   ul {
     @include flex-center;
     flex-direction: column;

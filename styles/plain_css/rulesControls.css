@@ -20,6 +20,15 @@ main .title {
   margin-bottom: 1em;
 }
 
+main .vysvetlivka {
+  max-width: 50%;
+  margin-bottom: 2em;
+  font-size: 1.1rem;
+  -ms-flex-item-align: center;
+      -ms-grid-row-align: center;
+      align-self: center;
+}
+
 main ul {
   display: -webkit-box;
   display: -ms-flexbox;
