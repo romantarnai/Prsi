@@ -8,7 +8,9 @@ main {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
+  max-width: 50%;
   min-height: 80vh;
+  margin: auto;
   -webkit-box-orient: vertical;
   -webkit-box-direction: normal;
       -ms-flex-direction: column;
@@ -20,13 +22,17 @@ main .title {
   margin-bottom: 1em;
 }
 
+main .subtitle {
+  font-size: 2rem;
+  margin-bottom: 1em;
+}
+
 main .vysvetlivka {
-  max-width: 50%;
   margin-bottom: 2em;
   font-size: 1.1rem;
-  -ms-flex-item-align: center;
-      -ms-grid-row-align: center;
-      align-self: center;
+  text-align: center;
+  letter-spacing: 0.03em;
+  line-height: 1.25em;
 }
 
 main ul {
@@ -39,6 +45,7 @@ main ul {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
+  max-width: 85%;
   -webkit-box-orient: vertical;
   -webkit-box-direction: normal;
       -ms-flex-direction: column;

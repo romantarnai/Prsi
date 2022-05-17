@@ -112,7 +112,7 @@ img {
 }
 
 .shakeAnim {
-  animation: shake 1s ease;
+  animation: shake 0.75s ease;
 }
 @keyframes shake {
   0% {
@@ -132,5 +132,45 @@ img {
   }
   100% {
     transform: rotateZ(0);
+  }
+}
+
+/* 
+===========
+  choose_color
+=========== */
+.choose_color {
+  @include flex-center;
+  visibility: hidden;
+  pointer-events: none;
+  background-color: rgba(0, 0, 0, 0.35);
+  position: absolute;
+  column-gap: 5em;
+  z-index: 5;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+
+  .img-box {
+    @include flex-center;
+    width: max-content;
+    gap: 3em;
+    padding-inline: 3em;
+    padding-block: 5em;
+    background-color: white;
+    border: 2px solid black;
+    border-radius: 10px;
+
+    img {
+      max-width: 100px;
+      height: auto;
+      cursor: pointer;
+      transition: all 0.5s ease;
+
+      &:hover {
+        transform: scale(1.08);
+      }
+    }
   }
 }

@@ -163,8 +163,8 @@ img.drown {
 }
 
 .shakeAnim {
-  -webkit-animation: shake 1s ease;
-          animation: shake 1s ease;
+  -webkit-animation: shake 0.75s ease;
+          animation: shake 0.75s ease;
 }
 
 @-webkit-keyframes shake {
@@ -219,5 +219,66 @@ img.drown {
     -webkit-transform: rotateZ(0);
             transform: rotateZ(0);
   }
+}
+
+/* 
+===========
+  choose_color
+=========== */
+.choose_color {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  visibility: hidden;
+  pointer-events: none;
+  background-color: rgba(0, 0, 0, 0.35);
+  position: absolute;
+  -webkit-column-gap: 5em;
+          column-gap: 5em;
+  z-index: 5;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+}
+
+.choose_color .img-box {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  width: -webkit-max-content;
+  width: -moz-max-content;
+  width: max-content;
+  gap: 3em;
+  padding-inline: 3em;
+  padding-block: 5em;
+  background-color: white;
+  border: 2px solid black;
+  border-radius: 10px;
+}
+
+.choose_color .img-box img {
+  max-width: 100px;
+  height: auto;
+  cursor: pointer;
+  -webkit-transition: all 0.5s ease;
+  transition: all 0.5s ease;
+}
+
+.choose_color .img-box img:hover {
+  -webkit-transform: scale(1.08);
+          transform: scale(1.08);
 }
 /*# sourceMappingURL=main.css.map */
