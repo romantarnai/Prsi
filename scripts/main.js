@@ -1,3 +1,7 @@
+// for choosing colors
+const choose_color = document.getElementById("choose_color");
+const chooser = document.getElementById("chooser");
+
 const human = document.getElementById("human");
 const ai = document.getElementById("ai");
 const center = document.getElementById("center");
@@ -12,6 +16,7 @@ let deck_id = null;
 let canPlay = false;
 
 /* variables for special cards */
+let activeSuit = "";
 let eso = false;
 let aiStop = false;
 let sedma = false;
@@ -53,12 +58,28 @@ const DrawToCenter = async () => {
         card.src = x.image;
 
         coin.style.backgroundImage = `url(images/${x.suit}.png)`;
+        activeSuit = x.suit;
 
         center.appendChild(card);
         setTimeout(() => {
             card.classList.add("drown");
         }, 50);
     });
+};
+
+/* 
+====================
+obnoví balíček na lízaní
+====================*/
+const RefillDraw = async () => {
+    let boardCardsLenght = boardCards.length;
+    let ReturnRequest = "";
+    for (let i = 0; i < boardCardsLenght - 1; i++) {
+        ReturnRequest += `${boardCards[boardCardsLenght - i - 1].code},`;
+        boardCards.pop();
+    }
+
+    let returned = await fetch(`https://deckofcardsapi.com/api/deck/${deck_id}/return/?cards=${ReturnRequest}`);
 };
 
 /* 
@@ -71,6 +92,12 @@ const DrawAi = async (amount) => {
     drawn_cards.cards.map((x) => {
         aiCards.push(x);
     });
+
+    // refill draw pack
+    // 8 je největší počet na líznutí takže stačí když jich tam zbýva alespoň 8
+    if (drawn_cards.remaining < 9) {
+        RefillDraw();
+    }
 
     // reset sedmy
     if (amount > 1) kolikLizes = 0;
@@ -95,11 +122,50 @@ const AiPlay = () => {
     aiCards.map((x) => {
         if (Control(boardCards[0], x) && !played) {
             coin.style.backgroundImage = `url(images/${x.suit}.png)`;
-            /* special card played */
+            activeSuit = x.suit;
+            /* ====== special card played ======= */
             if (x.value == "7") {
                 sedma = true;
                 kolikLizes += 2;
             } else if (x.value == "ACE") eso = true;
+            else if (x.value == "QUEEN") {
+                /* --- ai playing ace  --- */
+                let suit = "";
+                let suitsIn = [];
+                aiCards.map((x) => {
+                    suitsIn.push(x.suit);
+                });
+
+                let colors = [
+                    {
+                        suit: "SPADES",
+                        value: 0,
+                    },
+                    {
+                        suit: "HEARTS",
+                        value: 0,
+                    },
+                    {
+                        suit: "DIAMONDS",
+                        value: 0,
+                    },
+                    {
+                        suit: "CLUBS",
+                        value: 0,
+                    },
+                ];
+
+                suitsIn.forEach((e) => {
+                    colors.map((x) => (x.suit == e ? (x.value += 1) : ""));
+                });
+                colors.sort((a, b) => (a.value < b.value ? 1 : -1));
+                suit = colors[0].suit;
+
+                activeSuit = suit;
+                coin.style.backgroundImage = `url(images/${suit}.png)`;
+                choose_color.style.visibility = "hidden";
+                choose_color.style.pointerEvents = "none";
+            }
 
             boardCards.unshift(x);
             aiCards = aiCards.filter((y) => y.image != x.image);
@@ -166,6 +232,12 @@ const DrawPlayer = async (amount) => {
         humanCards.push(x);
     });
 
+    // refill draw pack
+    // 8 je největší počet na líznutí takže stačí když jich tam zbýva alespoň 8
+    if (drawn_cards.remaining < 9) {
+        RefillDraw();
+    }
+
     // reset sedmy
     if (amount > 1) kolikLizes = 0;
 
@@ -214,12 +286,17 @@ const DrawPlayer = async (amount) => {
 
             humanCards.map((x) => {
                 if (x.image == e.target.src) {
+                    activeSuit = x.suit;
                     coin.style.backgroundImage = `url(images/${x.suit}.png)`;
                     /* special card played */
                     if (x.value == "7") {
                         sedma = true;
                         kolikLizes += 2;
                     } else if (x.value == "ACE") eso = true;
+                    else if (x.value == "QUEEN") {
+                        choose_color.style.visibility = "visible";
+                        choose_color.style.pointerEvents = "all";
+                    }
 
                     boardCards.unshift(x);
                 }
@@ -233,9 +310,12 @@ const DrawPlayer = async (amount) => {
             canPlay = false;
             Renew();
             CoinMove("ai");
-            setTimeout(() => {
-                AiPlay();
-            }, Math.floor(Math.random() * 2500) + 1000); // random int from 1000 - 3500
+            // budeme muset čekat než si hráč vybere :|
+            if (x.value != "QUEEN") {
+                setTimeout(() => {
+                    AiPlay();
+                }, Math.floor(Math.random() * 2500) + 1000); // random int from 1000 - 3500
+            }
         });
     });
 };
@@ -251,41 +331,14 @@ const WrongMove = (target) => {
 
 /* 
 ======================
-animace pro neplatný tah
-====================== */
-coin.addEventListener("click", () => {
-    if (!eso) return;
-
-    PassPath();
-});
-const PassPath = () => {
-    if (canPlay) {
-        canPlay = false;
-        CoinMove("ai");
-        setTimeout(() => {
-            AiPlay();
-        }, Math.floor(Math.random() * 2500) + 1000); // random int from 1000 - 3500
-    } else {
-        canPlay = true;
-        CoinMove("human");
-        console.log("human is playing");
-    }
-
-    eso = false;
-};
-
-/* 
-======================
 kontrola platného tahu
 ====================== */
 const Control = (card1, card2) => {
     // card 1 == karta ve středu
-
-    /* else if (card1.value == "ACE" && card2.value != "ACE") return false; */
     if (eso && card2.value != "ACE") return false;
     else if (sedma && card2.value != "7") return false;
     else if (card1.value == card2.value) return true;
-    else if (card1.suit == card2.suit) return true;
+    else if (activeSuit == card2.suit) return true; // ne vždy odpovídá položené kartě(měnič)
     else return false;
 };
 
@@ -352,6 +405,29 @@ const SetScore = (who) => {
 };
 
 /* 
+===============
+výběr barvy u měniče
+===============*/
+Array.from(chooser.childNodes).map((x) => {
+    if (x.nodeType == 3) return;
+
+    x.addEventListener("click", (e) => {
+        ChangeColor(e.target.alt.toUpperCase());
+    });
+});
+/* změna barvy při výběru */
+const ChangeColor = (color) => {
+    activeSuit = color;
+    coin.style.backgroundImage = `url(images/${color}.png)`;
+    choose_color.style.visibility = "hidden";
+    choose_color.style.pointerEvents = "none";
+
+    setTimeout(() => {
+        AiPlay();
+    }, Math.floor(Math.random() * 2500) + 1000); // random int from 1000 - 3500
+};
+
+/* 
 =============================
 přehodí žeton na druhou stranu
 =============================*/
@@ -362,6 +438,30 @@ const CoinMove = (where) => {
         coin.style.bottom = "70%";
     }
 };
+/* 
+======================
+předání žetonu při esu
+====================== */
+coin.addEventListener("click", () => {
+    if (!eso) return;
+
+    PassPath();
+});
+const PassPath = () => {
+    if (canPlay) {
+        canPlay = false;
+        CoinMove("ai");
+        setTimeout(() => {
+            AiPlay();
+        }, Math.floor(Math.random() * 2500) + 1000); // random int from 1000 - 3500
+    } else {
+        canPlay = true;
+        CoinMove("human");
+        console.log("human is playing");
+    }
+
+    eso = false;
+};
 
 /*
 ===============
@@ -369,7 +469,7 @@ const CoinMove = (where) => {
 ===============*/
 const Start = async () => {
     await GetData();
-    for (let i = 0; i < 5; i++) {
+    for (let i = 0; i < 4; i++) {
         setTimeout(() => {
             DrawPlayer(1);
             DrawAi(1);
