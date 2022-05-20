@@ -8,12 +8,26 @@ main {
   margin-top: 0.5em;
   display: grid;
   grid-template-columns: 1fr;
-  grid-template-rows: 0.75fr 1.5fr 0.75fr;
+  grid-template-rows: repeat(3, max-content);
   grid-template-areas:
     "ai"
     "centr"
     "human";
-  height: 90vh;
+  width: 100%;
+}
+
+.container{
+  @include flex-center;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+  max-width: 100vw;
+  min-height: 80vh;
+  z-index: 1;
 }
 
 .center_board {
@@ -29,7 +43,7 @@ main {
 
   .coin {
     position: absolute;
-    bottom: 5%;
+    transform: translateY(75%);
     grid-area: cn;
     background-repeat: no-repeat;
     background-position: center;
@@ -39,7 +53,14 @@ main {
     width: 100px;
     height: 100px;
     justify-self: center;
-    transition: bottom 1s ease-out;
+    transition: all 1s ease-out;
+
+    &.top{
+      transform: translateY(-75%);
+    }
+    &.bottom{
+      transform: translateY(75%);
+    }
   }
   .center_card {
     margin-right: -50px;
@@ -60,8 +81,8 @@ main {
     justify-self: end;
     margin-right: 8em;
     img {
-      width: 155px;
-      height: auto;
+      width: auto;
+      height: 220px;
     }
   }
 }
@@ -77,10 +98,9 @@ main {
 }
 
 .player {
-  display: flex;
+  @include flex-center;
   flex-direction: row;
-  justify-content: center;
-  height: 100%;
+  height: max-content;
 
   img {
     position: relative;
@@ -95,16 +115,13 @@ main {
   border-bottom: 1px solid $mainColor;
 }
 .human {
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
   grid-area: human;
   border-top: 1px solid $mainColor;
 }
 
 img {
-  width: 165px;
-  height: auto;
+  width: auto;
+  height: 240px;
 
   &.drown {
     transform: translateY(0);

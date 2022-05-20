@@ -5,7 +5,6 @@
 body{
     background-color: whitesmoke;
     min-height: 100vh;
-    overflow: hidden;
 }
 *, *::after, *::before{
     font-family: 'Blinker', sans-serif;
@@ -19,9 +18,11 @@ body{
   navbar
 =========== */ 
 nav{
+    position: absolute;
     top: 0;
     left: 0;
     right: 0;
+    z-index: 100;
     background-color: $mainColor;
     display: flex;
     justify-content: space-between;

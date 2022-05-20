@@ -3,7 +3,6 @@
 body {
   background-color: whitesmoke;
   min-height: 100vh;
-  overflow: hidden;
 }
 
 *, *::after, *::before {
@@ -19,9 +18,11 @@ body {
   navbar
 =========== */
 nav {
+  position: absolute;
   top: 0;
   left: 0;
   right: 0;
+  z-index: 100;
   background-color: #268026;
   display: -webkit-box;
   display: -ms-flexbox;

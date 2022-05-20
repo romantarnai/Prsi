@@ -337,6 +337,7 @@ const Control = (card1, card2) => {
     // card 1 == karta ve středu
     if (eso && card2.value != "ACE") return false;
     else if (sedma && card2.value != "7") return false;
+    else if (card2.value == "QUEEN") return true; // měnič může na jakoukoliv barvu
     else if (card1.value == card2.value) return true;
     else if (activeSuit == card2.suit) return true; // ne vždy odpovídá položené kartě(měnič)
     else return false;
@@ -433,9 +434,11 @@ přehodí žeton na druhou stranu
 =============================*/
 const CoinMove = (where) => {
     if (where == "human") {
-        coin.style.bottom = "5%";
+        coin.classList.remove("top");
+        coin.classList.add("bottom");
     } else if (where == "ai") {
-        coin.style.bottom = "70%";
+        coin.classList.remove("bottom");
+        coin.classList.add("top");
     }
 };
 /* 
