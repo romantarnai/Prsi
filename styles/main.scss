@@ -16,7 +16,7 @@ main {
   width: 100%;
 }
 
-.container{
+.container {
   @include flex-center;
   position: absolute;
   left: 50%;
@@ -55,10 +55,10 @@ main {
     justify-self: center;
     transition: all 1s ease-out;
 
-    &.top{
+    &.top {
       transform: translateY(-75%);
     }
-    &.bottom{
+    &.bottom {
       transform: translateY(75%);
     }
   }
@@ -102,6 +102,8 @@ main {
   flex-direction: row;
   flex-wrap: wrap;
   height: max-content;
+  padding-inline: 2.5em;
+  padding-block: 0.5em;
 
   img {
     position: relative;
@@ -123,6 +125,7 @@ main {
 img {
   width: auto;
   height: 240px;
+  object-fit: cover;
 
   &.drown {
     transform: translateY(0);
@@ -172,7 +175,7 @@ img {
 
   .img-box {
     @include flex-center;
-    width: max-content;
+    width: 60vw;
     gap: 3em;
     padding-inline: 3em;
     padding-block: 5em;
@@ -189,6 +192,63 @@ img {
       &:hover {
         transform: scale(1.08);
       }
+    }
+  }
+}
+
+@media only screen and (max-width: 800px) {
+  img {
+    width: auto;
+    height: 200px;
+  }
+  .center_card {
+    width: 150px !important;
+    height: 210px !important;
+  }
+  .draw_pile {
+    margin-right: 2em !important;
+    img {
+      width: auto;
+      height: 180px !important;
+    }
+  }
+  .coin {
+    width: 60px !important;
+    height: 60px !important;
+  }
+
+  .img-box {
+    gap: 0.5em;
+    padding-inline: 1em;
+    padding-block: 3em;
+  }
+  .choose_color {
+    img {
+      max-width: 50px !important;
+    }
+  }
+}
+
+@media only screen and (max-width: 550px) {
+  img {
+    width: auto;
+    height: 170px;
+  }
+  .center_card {
+    width: 130px !important;
+    height: 180px !important;
+  }
+  .draw_pile {
+    margin-right: 1em !important;
+    img {
+      width: auto;
+      height: 160px !important;
+    }
+  }
+
+  .choose_color {
+    img {
+      max-width: 30px !important;
     }
   }
 }

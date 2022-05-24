@@ -159,6 +159,8 @@ main {
   height: -webkit-max-content;
   height: -moz-max-content;
   height: max-content;
+  padding-inline: 2.5em;
+  padding-block: 0.5em;
 }
 
 .player img {
@@ -190,6 +192,8 @@ main {
 img {
   width: auto;
   height: 240px;
+  -o-object-fit: cover;
+     object-fit: cover;
 }
 
 img.drown {
@@ -293,9 +297,7 @@ img.drown {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
-  width: -webkit-max-content;
-  width: -moz-max-content;
-  width: max-content;
+  width: 60vw;
   gap: 3em;
   padding-inline: 3em;
   padding-block: 5em;
@@ -317,5 +319,56 @@ img.drown {
 .choose_color .img-box img:hover {
   -webkit-transform: scale(1.08);
           transform: scale(1.08);
+}
+
+@media only screen and (max-width: 800px) {
+  img {
+    width: auto;
+    height: 200px;
+  }
+  .center_card {
+    width: 150px !important;
+    height: 210px !important;
+  }
+  .draw_pile {
+    margin-right: 2em !important;
+  }
+  .draw_pile img {
+    width: auto;
+    height: 180px !important;
+  }
+  .coin {
+    width: 60px !important;
+    height: 60px !important;
+  }
+  .img-box {
+    gap: 0.5em;
+    padding-inline: 1em;
+    padding-block: 3em;
+  }
+  .choose_color img {
+    max-width: 50px !important;
+  }
+}
+
+@media only screen and (max-width: 550px) {
+  img {
+    width: auto;
+    height: 170px;
+  }
+  .center_card {
+    width: 130px !important;
+    height: 180px !important;
+  }
+  .draw_pile {
+    margin-right: 1em !important;
+  }
+  .draw_pile img {
+    width: auto;
+    height: 160px !important;
+  }
+  .choose_color img {
+    max-width: 30px !important;
+  }
 }
 /*# sourceMappingURL=main.css.map */

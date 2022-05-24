@@ -357,7 +357,7 @@ const Renew = () => {
                 setTimeout(() => {
                     x.style.visibility = "visible";
                     x.classList.add("drown");
-                }, 100);
+                }, 200);
 
                 /* move to game over screen with delay dont set the timeout when not needed */
                 if (aiCards.length != 0 || humanCards.length != 0) {
