@@ -297,8 +297,9 @@ img.drown {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
+  -ms-flex-pack: distribute;
+      justify-content: space-around;
   width: 60vw;
-  gap: 3em;
   padding-inline: 3em;
   padding-block: 5em;
   background-color: white;
@@ -307,7 +308,7 @@ img.drown {
 }
 
 .choose_color .img-box img {
-  max-width: 100px;
+  max-width: 80px;
   height: auto;
   cursor: pointer;
   -webkit-transition: -webkit-transform 0.5s ease;
@@ -342,7 +343,6 @@ img.drown {
     height: 60px !important;
   }
   .img-box {
-    gap: 0.5em;
     padding-inline: 1em;
     padding-block: 3em;
   }
